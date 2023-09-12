@@ -1,4 +1,5 @@
 // index.js
+import Notiflix from 'notiflix';
 import { fetchBreeds } from './cat-api';
 import { fetchCatByBreed } from './cat-api';
 
@@ -33,7 +34,6 @@ function displayCatInfo(catData) {
     <img src="${catData.url}" alt="${catData.breeds[0].name}" width=500 />
   `;
 }
-// Функція для заповнення селекту опціями
 function fillBreedSelect(breeds) {
   breeds.forEach((breed, index) => {
     const option = document.createElement('option');
@@ -46,7 +46,6 @@ function fillBreedSelect(breeds) {
 function hideOption() {
   option.style.display = 'none';
 }
-// Функція для відображення завантажувача
 function showLoader() {
   breedSelect.style.display = 'none';
   errorEl.style.display = 'none';
@@ -55,7 +54,6 @@ function showLoader() {
   catInfo.style.display = 'none';
 }
 
-// Функція для приховання завантажувача
 function hideLoader() {
   breedSelect.style.display = 'block';
   errorEl.style.display = 'none';
@@ -64,43 +62,31 @@ function hideLoader() {
   catInfo.style.display = 'block';
 }
 
-// Викликаємо fetchBreeds та обробляємо результат
-showLoader(); // Відображаємо завантажувач при запуску
+import SlimSelect from 'slim-select';
+import 'slim-select/dist/slimselect.css';
+
+function showError(message) {
+  loader.style.display = 'none';
+  load.style.display = 'none';
+  breedSelect.style.display = 'none';
+  Notiflix.Notify.failure('Oops! Something went wrong!');
+}
+
+showLoader();
 fetchBreeds()
   .then(breeds => {
     fillBreedSelect(breeds);
     hideLoader();
+    const slimSelect = new SlimSelect({
+      select: '.js-breed-select',
+      placeholder: 'Choose a breed',
+      showSearch: false,
+      allowDeselect: true,
+      searchPlaceholder: 'Search breeds...',
+    });
   })
   .catch(error => {
-    // При обробці помилки показуємо відповідне повідомлення
     hideLoader();
-    showError();
+    showError(error);
     console.error(error);
   });
-
-// import SlimSelect from 'slim-select';
-// const slimSelect = new SlimSelect({
-//   select: '.js-breed-select',
-//   settings: {
-//     disabled: true,
-//     contentLocation: document.getElementById('local'),
-//     allowDeselect: true,
-//   },
-// });
-// slimSelect();
-
-// import Notiflix from 'notiflix';
-// function showError() {
-//   loader.style.display = 'none';
-//   load.style.display = 'none';
-//   breedSelect.style.display = 'none';
-
-//   Notiflix.Report.Failure(
-//     'Error',
-//     'Oops! Something went wrong! Try reloading the page!',
-//     'Reload',
-//     () => {
-//       location.reload();
-//     }
-//   );
-// }
