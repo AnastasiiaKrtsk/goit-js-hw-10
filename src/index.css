@@ -1,0 +1,76 @@
+.load {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fff;
+  border-bottom-color: #ff3d00;
+  border-radius: 50%;
+  /* display: inline-block; */
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* Style for the select element */
+.js-breed-select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #3498db;
+  border-radius: 5px;
+  outline: none;
+  background-color: #f8f8f8;
+  color: #333;
+  transition: border-color 0.3s ease-in-out;
+}
+
+/* Style for the select when focused */
+.js-breed-select:focus {
+  border-color: #2980b9;
+}
+
+/* Style for the dropdown arrow */
+.js-breed-select::after {
+  content: '▼';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Style for dropdown options */
+.js-breed-select option {
+  padding: 10px;
+  background-color: #f8f8f8;
+  color: #333;
+  font-size: 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Style for the loader and error messages */
+.loader,
+.load,
+.error {
+  font-size: 18px;
+  color: #e74c3c;
+  margin-top: 10px;
+}
+
+/* Style for the cat info */
+.cat-info {
+  display: none;
+  margin-top: 20px;
+  text-align: left;
+}
+
+/* Style for the placeholder text */
+.js-breed-select option[value=''] {
+  color: #999;
+}
